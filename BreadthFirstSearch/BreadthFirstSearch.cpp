@@ -1,13 +1,15 @@
-// BreadthFirstSearch.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+#include <stdio.h>
 #include <iostream>
 #include <queue>
 
 using namespace std;
-void BFS(int vtx, int A[][8], int n) {
+
+//void BFS(int vtx, int A[][10], int n) {
+void BFS(int vtx, vector<vector<int>> A, int n) {
     queue<int> Q;
-    int visited[8]{ 0 };
+    int* visited;
+    visited = new int[n] {0};
+    //int visited[10]{ 0 };
 
     // Initial
     cout << vtx << ", " << flush;  // Visit vertex
@@ -18,7 +20,7 @@ void BFS(int vtx, int A[][8], int n) {
     while (!Q.empty()) {
         int u = Q.front();  // Vertex u for exploring
         Q.pop();
-        for (int v = 1; v <= n; v++) {  // Adjacent vertices of vertex u
+        for (int v = 0; v < n; v++) {  // Adjacent vertices of vertex u
             if (A[u][v] == 1 && visited[v] == 0) {  // Adjacent vertex and not visited
                 cout << v << ", " << flush;  // Visit vertex
                 visited[v] = 1;
@@ -27,40 +29,37 @@ void BFS(int vtx, int A[][8], int n) {
         }
     }
     cout << endl;
+    delete[] visited;
 }
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    printf("Hello BFS\n");
+    int n = 10;
+    vector<vector<int>> A;
+    //int A[10][10]
+     A= { {0, 1, 0, 0, 0, 0, 1, 0, 1, 0},
+                     {1, 0, 0, 0, 1, 0, 1, 0, 0,1},
+                     {0, 0, 0, 0, 1, 0, 1, 0, 0, 0},
+                     {0, 0, 0, 0, 1, 1, 0, 0, 1, 0},
+                     {0, 1, 1, 1, 0, 1, 0, 0, 0, 1},
+                     {0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
+                     {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
+                     {0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                     {1, 0, 0, 1, 0, 0, 0, 1, 0, 0},
+                     {0, 1, 0, 0, 1, 0, 0,1,0,0} };
 
+    cout << "Vertex: 6 -> " << flush;
+    BFS(6, A, n);
 
-    int A[8][8] = { {0, 0, 0, 0, 0, 0, 0, 0},
-               {0, 0, 1, 1, 1, 0, 0, 0},
-               {0, 1, 0, 1, 0, 0, 0, 0},
-               {0, 1, 1, 0, 1, 1, 0, 0},
-               {0, 1, 0, 1, 0, 1, 0, 0},
-               {0, 0, 0, 1, 1, 0, 1, 1},
-               {0, 0, 0, 0, 0, 1, 0, 0},
-               {0, 0, 0, 0, 0, 1, 0, 0} };
+    cout << "Vertex: 0 -> " << flush;
+    BFS(0, A, n);
 
-    cout << "Vertex: 1 -> " << flush;
-    BFS(1, A, 8);
-
-    cout << "Vertex: 4 -> " << flush;
-    BFS(4, A, 8);
-
+    cout << "Vertex: 7 -> " << flush;
+    BFS(7, A, n);
 
     return 0;
-
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
